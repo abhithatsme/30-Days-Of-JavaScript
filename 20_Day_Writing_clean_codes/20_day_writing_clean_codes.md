@@ -33,6 +33,8 @@
 			- [Objects](#objects)
 			- [Conditional](#conditional)
 			- [Classes](#classes)
+	- [Added Activity](#added-activity)
+		- [Applied Lab (r54-t026)](#applied-lab-r54-t026)
 
 # Day 20
 
@@ -354,6 +356,18 @@ class Person {
 Whatever style guide you follow be consistent. Follow some programming paradigms and design patterns. Remember, if you do not write you code in certain order or fashion it will be hard to read your code. So, do a favor for yourself or for someone who is going to read your code by writing readable code.
 
 🌕 You are tidy. Now, you knew how to write clean code, so anyone who know the English language can understand your code.  You are always progressing and you are a head of 20 steps to your way to greatness.
+
+## Added Activity
+
+### Applied Lab (r54-t026)
+
+- **Lab**: [Module Packaging & Clean Code Formatter Applied Lab](./applied-labs/r54-t026/README.md)
+- **Inputs & Expected Results**:
+  - `formatNumber(1234.5, { locale: 'en-US' })` → Expected Result: `'1,234.5'`
+  - `formatNumber(1234.5, { locale: 'de-DE' })` → Expected Result: `'1.234,5'`
+  - `formatCurrency(1234.5, 'USD', 'en-US')` → Expected Result: `'$1,234.50'`
+  - `baselineFormatNumber(val, opts)` vs `formatNumber(val, opts)` → Expected Result: 100% behavioral equivalence across test matrix
+- **Contribution Focus**: Start from a working version, capture its behavior and extract one clearly named responsibility without changing the contract.
 
 🎉 CONGRATULATIONS ! 🎉
 

@@ -1,0 +1,80 @@
+{
+  "contributionFocus": "Start from a working version, capture its behavior and extract one clearly named responsibility without changing the contract.",
+  "toolVersions": {
+    "node": "v26.13.1",
+    "playwright": "1.65.1",
+    "os": "Darwin 25.6.0 (arm64)",
+    "timestamp": "2026-11-18T13:53:17.707Z"
+  },
+  "summary": {
+    "totalTests": 8,
+    "passed": 8,
+    "failed": 0
+  },
+  "tests": [
+    {
+      "id": "T01-SIDE-EFFECT-FREE-IMPORT",
+      "description": "Module import has zero global pollution or side effects, and exports explicit public API",
+      "input": "require(\"./example.js\")",
+      "expected": "All public functions present, 0 global scope leaks",
+      "actual": "Exports: [baselineFormatNumber, normalizeFormatOptions, createNumberFormatter, formatNumber, formatCurrency, startServer, HTML_CONTENT, DEFAULT_LOCALE, SUPPORTED_STYLES], leaked globals: 0",
+      "passed": true
+    },
+    {
+      "id": "T02-REPEATABLE-FORMAT-EN-US",
+      "description": "Formatting 1234.5 with en-US is repeatable across multiple invocations",
+      "input": "formatNumber(1234.5, { locale: \"en-US\" }) [3 calls]",
+      "expected": "1,234.5",
+      "actual": "1,234.5 (run1 === run2 === run3: true)",
+      "passed": true
+    },
+    {
+      "id": "T03-REPEATABLE-FORMAT-DE-DE",
+      "description": "Formatting 1234.5 with de-DE is repeatable and uses dot grouping and comma decimal",
+      "input": "formatNumber(1234.5, { locale: \"de-DE\" })",
+      "expected": "1.234,5",
+      "actual": "1.234,5",
+      "passed": true
+    },
+    {
+      "id": "T04-CURRENCY-FORMAT-USD",
+      "description": "Formatting 1234.5 as currency USD in en-US produces exact expected symbol and 2 decimals",
+      "input": "formatCurrency(1234.5, \"USD\", \"en-US\")",
+      "expected": "$1,234.50",
+      "actual": "$1,234.50",
+      "passed": true
+    },
+    {
+      "id": "T05-EXTRACTED-RESPONSIBILITY-NORMALIZATION",
+      "description": "Extracted responsibility normalizeFormatOptions validates, applies defaults, and freezes config",
+      "input": "normalizeFormatOptions() and custom options",
+      "expected": "Clean sanitized configuration matching style rules",
+      "actual": "Default locale=en-US, style=decimal; Custom locale=de-DE, currency=EUR",
+      "passed": true
+    },
+    {
+      "id": "T06-BEHAVIORAL-EQUIVALENCE",
+      "description": "Refactored formatNumber produces 100% identical outputs to baseline across input matrix",
+      "input": "6 sample cases including 1234.5 and edge cases",
+      "expected": "100% identical outputs (baseline === refactored)",
+      "actual": "All 6 test cases matched perfectly: true",
+      "passed": true
+    },
+    {
+      "id": "T07-PLAYWRIGHT-BROWSER-INTERACTION",
+      "description": "Playwright verifies interactive DOM updates for 1234.5 across en-US, de-DE, and currency",
+      "input": "Web interactions on ephemeral server with locale & style selects",
+      "expected": "Initial: 1,234.5; de-DE: 1.234,5; USD: $1,234.50",
+      "actual": "Initial: 1,234.5; de-DE: 1.234,5; USD: $1,234.50",
+      "passed": true
+    },
+    {
+      "id": "T08-ZERO-CONSOLE-PAGE-ERRORS",
+      "description": "Browser session exhibits zero console errors and zero unhandled page errors",
+      "input": "Page error and console error listeners during full execution",
+      "expected": "0 console errors, 0 page errors",
+      "actual": "Console errors: 0, Page errors: 0",
+      "passed": true
+    }
+  ]
+}
